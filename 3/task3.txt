@@ -1,0 +1,19 @@
+* Settings
+Library         Selenium2Library
+Library         BuiltIn
+Test Teardown   Close Browser
+
+* Variables
+${browser}              ff
+${startUrl}             http://www.yopmail.com/ru/
+${inbox}                testmailat@yopmail.com
+
+* Test Cases
+Task3
+    [Documentation]    Task 3
+    Open Browser    about:newtab        ${browser}
+    Maximize Browser Window
+    Go To                               ${startUrl}
+    Input Text                          id:login    ${inbox}
+    Click Element                       css:[type=submit]
+    Element Text Should Be              id:nbmail   0 mail${SPACE}

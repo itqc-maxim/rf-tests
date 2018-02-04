@@ -1,0 +1,21 @@
+*** Settings ***
+Library           OperatingSystem
+
+*** Variables ***
+${firstdir}       test
+${seconddir}      new
+${filename}       mytest.txt
+
+*** Test Cases ***
+Task1a
+    [Documentation]    Task 1a
+    Directory Should Exist    ./${firstdir}
+    Directory Should Be Empty    ./${firstdir}
+    Create Directory    ./${firstdir}/${seconddir}
+    Directory Should Exist    ./${firstdir}/${seconddir}
+    Directory Should Be Empty    ./${firstdir}/${seconddir}
+    Create File    ./${firstdir}/${filename}
+    Copy File    ./${firstdir}/${filename}    ./${firstdir}/${seconddir}/${filename}
+    File Should Exist    ./${firstdir}/${filename}
+    File Should Exist    ./${firstdir}/${seconddir}/${filename}
+    Log    Files has been successfully created

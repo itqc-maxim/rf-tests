@@ -1,0 +1,84 @@
+* Settings
+Library         Selenium2Library
+Test Teardown   Close Browser
+
+* Variables
+${browser}              ff
+${mapLatitude}          -27.1547
+${mapLongitude}         -109.43241
+${target}               остров Пасхи
+${targetDescription}    Токопилья, Чили
+
+* Keywords
+Validate Coordinates
+    [Arguments]         ${ltt}      ${lgt}
+    [Documentation]     This keyword takes      2 arguments
+    Should Be True      float(${ltt}) >= -90
+    Should Be True      float(${ltt}) <= 90
+    Should Be True      float(${lgt}) >= -180
+    Should Be True      float(${lgt}) <= 180
+    [Return]              ${ltt}, ${lgt}
+
+* Test Cases
+Task2
+    [Documentation]    Task 2
+    Open Browser    about:newtab        ${browser}
+    Maximize Browser Window
+    Go To                               http://yandex.ru/
+    Click Link                          link:Карты
+    Input Text                          css:.search-form-view input         ${mapLatitude} ${mapLongitude}
+    Click Element                       css:.search-form-view [type=submit]
+    Wait Until Page Contains            ${target}
+    Wait Until Page Contains Element    class:search-placemark-layout-connect__title
+    Wait Until Element Contains         class:search-placemark-layout-connect__title    ${target}
+    Wait Until Page Contains Element    class:card-title-view__title
+    Element Should Contain              class:card-title-view__title    ${target}
+    Wait Until Page Contains Element    class:toponym-card-view__description
+    Element Should Contain              class:toponym-card-view__description    ${targetDescription}
+    Wait Until Page Contains Element    class:clipboard__content
+    Element Should Contain              class:clipboard__content    ${mapLatitude}
+    Element Should Contain              class:clipboard__content    ${mapLongitude}
+
+Task2a
+    [Documentation]    Task 2a
+    Open Browser    about:newtab        ${browser}
+    Maximize Browser Window
+    Go To                               http://wikimapia.org/
+    Wait Until Page Contains Element    id:search-input
+    Input Text                          id:search-input         ${mapLatitude} ${mapLongitude}
+    Wait Until Page Contains Element    id:search-submit
+    Click Element                       id:search-submit
+    Wait Until Page Contains Element    id:searchFrame
+    Select Frame                        id:searchFrame
+    Wait Until Page Contains Element    css:.searchlist .search-result-item
+    Click Element                       css:.searchlist .search-result-item
+    Unselect Frame
+    # А вот тут викимапия нигде вообще не показывает попадание маркера, поэтому проверяем, что цель "по названию" в области видимости
+    Input Text                          id:search-input         ${target}
+    Click Element                       id:search-submit
+    Select Frame                        id:searchFrame
+    Wait Until Page Contains Element    css:.searchlist .search-result-item
+    Mouse Over                          css:.searchlist .search-result-item
+    Unselect Frame
+    Page Should Contain Element         jquery:#wikimapia-marker-icons-container>span:visible
+    # Как вариант - использовать сложные взаимодействия через Execute Javascript
+
+Task2b
+    [Documentation]    Task 2b
+    Open Browser    about:newtab        ${browser}
+    Maximize Browser Window
+    Go To                               http://yandex.ru/
+    Click Link                          link:Карты
+    ${coords} =                         Validate Coordinates    ${mapLatitude}      ${mapLongitude}
+    Input Text                          css:.search-form-view input         ${coords}
+    Click Element                       css:.search-form-view [type=submit]
+    Wait Until Page Contains            ${target}
+    Wait Until Page Contains Element    class:search-placemark-layout-connect__title
+    Wait Until Element Contains         class:search-placemark-layout-connect__title    ${target}
+    Wait Until Page Contains Element    class:card-title-view__title
+    Element Should Contain              class:card-title-view__title    ${target}
+    Wait Until Page Contains Element    class:toponym-card-view__description
+    Element Should Contain              class:toponym-card-view__description    ${targetDescription}
+    Wait Until Page Contains Element    class:clipboard__content
+    Element Should Contain              class:clipboard__content    ${mapLatitude}
+    Element Should Contain              class:clipboard__content    ${mapLongitude}

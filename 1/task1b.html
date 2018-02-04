@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!--meta charset="utf-8"-->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Task 1b</title>
+	<style type="text/css">
+		body {
+			font-family: sans-serif;
+			max-width: 800px;
+			margin: auto;
+			padding-top: 1em;
+			color: #333;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-bottom: 1em;
+		}
+
+		thead {
+			background-color: #333;
+			color: #FFF;
+		}
+
+		td, th {
+			border: 1px solid #888;
+			padding: .5em;
+		}
+
+		tbody>tr:nth-child(odd) {
+			background-color: #FFF;
+		}
+
+		tbody>tr:nth-child(even) {
+			background-color: #EEE;
+		}
+	</style>
+</head>
+<body>
+<table>
+	<thead>
+		<tr>
+			<th>Setting</th>
+			<th>Value</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Library</td>
+			<td>OperatingSystem</td>
+		</tr>
+	</tbody>
+</table>
+<table>
+	<thead>
+		<tr>
+			<th>Variable</th>
+			<th>Value</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>${firstdir}</td>
+			<td>test</td>
+		</tr>
+		<tr>
+			<td>${seconddir}</td>
+			<td>new</td>
+		</tr>
+		<tr>
+			<td>${filename}</td>
+			<td>mytest.txt</td>
+		</tr>
+	</tbody>
+</table>
+<table>
+	<thead>
+		<tr>
+			<th>Test Case</th>
+			<th>Action</th>
+			<th>Argument</th>
+			<th>Argument</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Task 1b</td>
+			<td>[Documentation]</td>
+			<td colspan="2">Task 1b</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>Directory Should Exist</td>
+			<td>./${firstdir}</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>Directory Should Be Empty</td>
+			<td>./${firstdir}</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>Create Directory</td>
+			<td>./${firstdir}/${seconddir}</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>Directory Should Exist</td>
+			<td>./${firstdir}/${seconddir}</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>Directory Should Be Empty</td>
+			<td>./${firstdir}/${seconddir}</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>Create File</td>
+			<td>./${firstdir}/${filename}</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>Copy File</td>
+			<td>./${firstdir}/${filename}</td>
+			<td>./${firstdir}/${seconddir}/${filename}</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>File Should Exist</td>
+			<td>./${firstdir}/${filename}</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>File Should Exist</td>
+			<td>./${firstdir}/${seconddir}/${filename}</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>Log</td>
+			<td>Files has been successfully created</td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
+</body>
+</html>
